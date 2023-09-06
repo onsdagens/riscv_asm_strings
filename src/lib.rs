@@ -55,6 +55,7 @@ impl Stringify for I{
             Self::CSRRWI { csr, zimm, d } => format!("CSRRW {:x}, {:?}, {:?}", csr, zimm, d),
             Self::CSRRSI { csr, zimm, d } => format!("CSRRSI {:x}, {:?}, {:?}", csr, zimm, d),
             Self::CSRRCI { csr, zimm, d } => format!("CSRRCI {:x}, {:?}, {:?}", csr, zimm, d),
+            Self::MRET {} => format!("MRET"),
 
 
             //_=>{"todo".to_string()}

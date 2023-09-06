@@ -5,7 +5,7 @@ version = 3
 [[package]]
 name = "asm_riscv"
 version = "0.1.0"
-source = "git+https://github.com/onsdagens/wari/#4dc160b7a40731af839744edc1a6fe88fe361cad"
+source = "git+https://github.com/onsdagens/wari/#9adfe5fdaa6707e8fdf039f168b843b392655ef6"
 
 [[package]]
 name = "riscv_asm_strings"
