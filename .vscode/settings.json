@@ -1,0 +1,25 @@
+{
+  "cSpell.ignoreWords": [
+    "ADDI",
+    "AUIPC",
+    "BGEU",
+    "BLTU",
+    "CSRRC",
+    "CSRRCI",
+    "CSRRS",
+    "CSRRSI",
+    "CSRRW",
+    "EBREAK",
+    "ECALL",
+    "JALR",
+    "MRET",
+    "SLLI",
+    "SLTI",
+    "SLTIU",
+    "SLTU",
+    "SRAI",
+    "SRLI",
+    "XORI",
+    "riscv"
+  ]
+}
