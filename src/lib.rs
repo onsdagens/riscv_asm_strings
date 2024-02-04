@@ -64,11 +64,11 @@ impl Stringify for I {
     }
 }
 
-pub trait StringifyHex {
+pub trait StringifyLowerHex {
     fn to_string(&self) -> String;
 }
 
-impl StringifyHex for I {
+impl StringifyLowerHex for I {
     fn to_string(&self) -> String {
         match *self {
             Self::ADD { d, s1, s2 } => format!("ADD {:?}, {:?}, {:?}", d, s1, s2),
@@ -117,6 +117,64 @@ impl StringifyHex for I {
             Self::CSRRWI { csr, zimm, d } => format!("CSRRW {:x}, {:#x}, {:?}", csr, zimm, d),
             Self::CSRRSI { csr, zimm, d } => format!("CSRRSI {:x}, {:#x}, {:?}", csr, zimm, d),
             Self::CSRRCI { csr, zimm, d } => format!("CSRRCI {:x}, {:#x}, {:?}", csr, zimm, d),
+            Self::MRET {} => "MRET".to_string(),
+        }
+    }
+}
+
+pub trait StringifyUpperHex {
+    fn to_string(&self) -> String;
+}
+
+impl StringifyUpperHex for I {
+    fn to_string(&self) -> String {
+        match *self {
+            Self::ADD { d, s1, s2 } => format!("ADD {:?}, {:?}, {:?}", d, s1, s2),
+            Self::ADDI { d, s, im } => format!("ADDI {:?}, {:?}, {:#X}", d, s, im),
+            Self::AND { d, s1, s2 } => format!("AND {:?}, {:?}, {:?}", d, s1, s2),
+            Self::ANDI { d, s, im } => format!("AND {:?}, {:?}, {:#X}", d, s, im),
+            Self::AUIPC { d, im } => format!("AUIPC {:?}, {:#X}", d, im),
+            Self::BEQ { s1, s2, im } => format!("BEQ {:?}, {:?}, {:#X}", s1, s2, im),
+            Self::BGE { s1, s2, im } => format!("BGE {:?}, {:?}, {:#X}", s1, s2, im),
+            Self::BGEU { s1, s2, im } => format!("BGEU {:?}, {:?}, {:#X}", s1, s2, im),
+            Self::BLT { s1, s2, im } => format!("BLT {:?}, {:?}, {:#X}", s1, s2, im),
+            Self::BLTU { s1, s2, im } => format!("BLTU {:?}, {:?}, {:#X}", s1, s2, im),
+            Self::BNE { s1, s2, im } => format!("BNE {:?}, {:?}, {:#X}", s1, s2, im),
+            Self::JAL { d, im } => format!("JAL {:?}, {:#X}", d, im),
+            Self::JALR { d, s, im } => format!("JALR {:?}, {:?}, {:#X}", d, s, im),
+            Self::LW { d, s, im } => format!("LW {:?}, {:#X}({:?})", d, im, s),
+            Self::SW { s1, s2, im } => format!("SW {:?}, {:#X}({:?})", s2, im, s1),
+            Self::LUI { d, im } => format!("LUI {:?}, {:#X}", d, im),
+            Self::SLLI { d, s, im } => format!("SLLI {:?}, {:?}, {:#X}", d, s, im),
+            Self::ORI { d, s, im } => format!("ORI {:?}, {:?}, {:#X}", d, s, im),
+            Self::OR { d, s1, s2 } => format!("OR {:?}, {:?}, {:?}", d, s1, s2),
+            Self::SRAI { d, s, im } => format!("SRAI {:?}, {:?}, {:#X}", d, s, im),
+            Self::SRLI { d, s, im } => format!("SRLI {:?}, {:?}, {:#X}", d, s, im),
+            Self::XOR { d, s1, s2 } => format!("XOR {:?}, {:?}, {:?}", d, s1, s2),
+            Self::LB { d, s, im } => format!("LB {:?}, {:#X}({:?})", d, im, s),
+            Self::LBU { d, s, im } => format!("LBU {:?}, {:#X}({:?})", d, im, s),
+            Self::LHU { d, s, im } => format!("LBU {:?}, {:#X}({:?})", d, im, s),
+            Self::SB { s1, s2, im } => format!("SB {:?}, {:#X}({:?})", s2, im, s1),
+            Self::SH { s1, s2, im } => format!("SHU {:?}, {:#X}({:?})", s2, im, s1),
+            Self::SLT { d, s1, s2 } => format!("SLT {:?}, {:?}, {:?}", d, s1, s2),
+            Self::SLTI { d, s, im } => format!("SLTI {:?}, {:?}, {:#X}", d, s, im),
+            Self::SLTU { d, s1, s2 } => format!("SLTU {:?}, {:?}, {:?}", d, s1, s2),
+            Self::SLTUI { d, s, im } => format!("SLTIU {:?}, {:?}, {:#X}", d, s, im as u16),
+            Self::SUB { d, s1, s2 } => format!("SUB {:?}, {:?}, {:?}", d, s1, s2),
+            Self::XORI { d, s, im } => format!("XORI {:?}, {:?}, {:#X}", d, s, im),
+            Self::LH { d, s, im } => format!("LH {:?}, {:#X}({:?})", d, im, s),
+            Self::SLL { d, s1, s2 } => format!("SLL {:?}, {:?}, {:?}", d, s1, s2),
+            Self::SRL { d, s1, s2 } => format!("SRL {:?}, {:?}, {:?}", d, s1, s2),
+            Self::SRA { d, s1, s2 } => format!("SRA {:?}, {:?}, {:?}", d, s1, s2),
+            Self::EBREAK {} => "EBREAK".to_string(),
+            Self::ECALL {} => "ECALL".to_string(),
+            Self::FENCE { im } => format!("FENCE {:#X}", im),
+            Self::CSRRW { csr, s1, d } => format!("CSRRW {:x}, {:?}, {:?}", csr, s1, d),
+            Self::CSRRS { csr, s1, d } => format!("CSRRS {:x}, {:?}, {:?}", csr, s1, d),
+            Self::CSRRC { csr, s1, d } => format!("CSRRC {:x}, {:?}, {:?}", csr, s1, d),
+            Self::CSRRWI { csr, zimm, d } => format!("CSRRW {:x}, {:#X}, {:?}", csr, zimm, d),
+            Self::CSRRSI { csr, zimm, d } => format!("CSRRSI {:x}, {:#X}, {:?}", csr, zimm, d),
+            Self::CSRRCI { csr, zimm, d } => format!("CSRRCI {:x}, {:#X}, {:?}", csr, zimm, d),
             Self::MRET {} => "MRET".to_string(),
         }
     }

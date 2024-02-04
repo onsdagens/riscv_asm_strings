@@ -1,6 +1,7 @@
 {
   "cSpell.ignoreWords": [
     "ADDI",
+    "ANDI",
     "AUIPC",
     "BGEU",
     "BLTU",
@@ -9,6 +10,7 @@
     "CSRRS",
     "CSRRSI",
     "CSRRW",
+    "CSRRWI",
     "EBREAK",
     "ECALL",
     "JALR",
