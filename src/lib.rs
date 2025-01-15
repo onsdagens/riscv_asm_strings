@@ -1,5 +1,5 @@
-use asm_riscv::I;
-
+pub use asm_riscv::Reg;
+pub use asm_riscv::I;
 pub trait Stringify {
     fn to_string(&self) -> String;
 
