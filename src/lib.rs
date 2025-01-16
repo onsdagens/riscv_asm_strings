@@ -108,7 +108,7 @@ impl Stringify for I {
             Self::EBREAK {} => "EBREAK".to_string(),
             Self::ECALL {} => "ECALL".to_string(),
             Self::FENCE { im } => format!("FENCE {}", im),
-            Self::CSRRW { csr, s1, d } => format!("CSRRW 0x{:x}, {}, {}", csr, d, s1),
+            Self::CSRRW { csr, s1, d } => format!("CSRRW {}, 0x{:x}, {}", d, csr, s1),
             Self::CSRRS { csr, s1, d } => format!("CSRRS {:x}, {}, {}", csr, s1, d),
             Self::CSRRC { csr, s1, d } => format!("CSRRC {:x}, {}, {}", csr, s1, d),
             Self::CSRRWI { csr, zimm, d } => format!("CSRRW {:x}, {}, {}", csr, zimm, d),
