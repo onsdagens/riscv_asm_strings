@@ -10,39 +10,98 @@ impl Stringify for I {
     fn to_string(&self) -> String {
         match *self {
             Self::ADD { d, s1, s2 } => format!("ADD {}, {}, {}", d, s1, s2),
-            Self::ADDI { d, s, im } => format!("ADDI {}, {}, {}", d, s, im),
+            Self::ADDI { d, s, im } => {
+                format!("ADDI {}, {}, {}", d, s, (((im & 0xFFF) as i32) << 20) >> 20)
+            }
             Self::AND { d, s1, s2 } => format!("AND {}, {}, {}", d, s1, s2),
-            Self::ANDI { d, s, im } => format!("AND {}, {}, {}", d, s, im),
+            Self::ANDI { d, s, im } => {
+                format!("AND {}, {}, {}", d, s, (((im & 0xFFF) as i32) << 20) >> 20)
+            }
             Self::AUIPC { d, im } => format!("AUIPC {}, {}", d, im),
-            Self::BEQ { s1, s2, im } => format!("BEQ {}, {}, {}", s1, s2, im),
-            Self::BGE { s1, s2, im } => format!("BGE {}, {}, {}", s1, s2, im),
-            Self::BGEU { s1, s2, im } => format!("BGEU {}, {}, {}", s1, s2, im),
-            Self::BLT { s1, s2, im } => format!("BLT {}, {}, {}", s1, s2, im),
-            Self::BLTU { s1, s2, im } => format!("BLTU {}, {}, {}", s1, s2, im),
-            Self::BNE { s1, s2, im } => format!("BNE {}, {}, {}", s1, s2, im),
+            Self::BEQ { s1, s2, im } => format!(
+                "BEQ {}, {}, {}",
+                s1,
+                s2,
+                (((im & 0xFFF) as i32) << 20) >> 20
+            ),
+            Self::BGE { s1, s2, im } => format!(
+                "BGE {}, {}, {}",
+                s1,
+                s2,
+                (((im & 0xFFF) as i32) << 20) >> 20
+            ),
+            Self::BGEU { s1, s2, im } => format!(
+                "BGEU {}, {}, {}",
+                s1,
+                s2,
+                (((im & 0xFFF) as i32) << 20) >> 20
+            ),
+            Self::BLT { s1, s2, im } => format!(
+                "BLT {}, {}, {}",
+                s1,
+                s2,
+                (((im & 0xFFF) as i32) << 20) >> 20
+            ),
+            Self::BLTU { s1, s2, im } => format!(
+                "BLTU {}, {}, {}",
+                s1,
+                s2,
+                (((im & 0xFFF) as i32) << 20) >> 20
+            ),
+            Self::BNE { s1, s2, im } => format!(
+                "BNE {}, {}, {}",
+                s1,
+                s2,
+                (((im & 0xFFF) as i32) << 20) >> 20
+            ),
             Self::JAL { d, im } => format!("JAL {}, {}", d, im),
             Self::JALR { d, s, im } => format!("JALR {}, {}, {}", d, s, im),
-            Self::LW { d, s, im } => format!("LW {}, {}({})", d, im, s),
-            Self::SW { s1, s2, im } => format!("SW {}, {}({})", s2, im, s1),
+            Self::LW { d, s, im } => {
+                format!("LW {}, {}({})", d, (((im & 0xFFF) as i32) << 20) >> 20, s)
+            }
+            Self::SW { s1, s2, im } => {
+                format!("SW {}, {}({})", s2, (((im & 0xFFF) as i32) << 20) >> 20, s1)
+            }
             Self::LUI { d, im } => format!("LUI {}, {}", d, im),
             Self::SLLI { d, s, im } => format!("SLLI {}, {}, {}", d, s, im),
-            Self::ORI { d, s, im } => format!("ORI {}, {}, {}", d, s, im),
+            Self::ORI { d, s, im } => {
+                format!("ORI {}, {}, {}", d, s, (((im & 0xFFF) as i32) << 20) >> 20)
+            }
             Self::OR { d, s1, s2 } => format!("OR {}, {}, {}", d, s1, s2),
             Self::SRAI { d, s, im } => format!("SRAI {}, {}, {}", d, s, im),
             Self::SRLI { d, s, im } => format!("SRLI {}, {}, {}", d, s, im),
             Self::XOR { d, s1, s2 } => format!("XOR {}, {}, {}", d, s1, s2),
-            Self::LB { d, s, im } => format!("LB {}, {}({})", d, im, s),
-            Self::LBU { d, s, im } => format!("LBU {}, {}({})", d, im, s),
-            Self::LHU { d, s, im } => format!("LBU {}, {}({})", d, im, s),
-            Self::SB { s1, s2, im } => format!("SB {}, {}({})", s2, im, s1),
-            Self::SH { s1, s2, im } => format!("SHU {}, {}({})", s2, im, s1),
+            Self::LB { d, s, im } => {
+                format!("LB {}, {}({})", d, (((im & 0xFFF) as i32) << 20) >> 20, s)
+            }
+            Self::LBU { d, s, im } => {
+                format!("LBU {}, {}({})", d, (((im & 0xFFF) as i32) << 20) >> 20, s)
+            }
+            Self::LHU { d, s, im } => {
+                format!("LBU {}, {}({})", d, (((im & 0xFFF) as i32) << 20) >> 20, s)
+            }
+            Self::SB { s1, s2, im } => {
+                format!("SB {}, {}({})", s2, (((im & 0xFFF) as i32) << 20) >> 20, s1)
+            }
+            Self::SH { s1, s2, im } => format!(
+                "SHU {}, {}({})",
+                s2,
+                (((im & 0xFFF) as i32) << 20) >> 20,
+                s1
+            ),
             Self::SLT { d, s1, s2 } => format!("SLT {}, {}, {}", d, s1, s2),
-            Self::SLTI { d, s, im } => format!("SLTI {}, {}, {}", d, s, im),
+            Self::SLTI { d, s, im } => {
+                format!("SLTI {}, {}, {}", d, s, (((im & 0xFFF) as i32) << 20) >> 20)
+            }
             Self::SLTU { d, s1, s2 } => format!("SLTU {}, {}, {}", d, s1, s2),
             Self::SLTUI { d, s, im } => format!("SLTIU {}, {}, {}", d, s, im as u16),
             Self::SUB { d, s1, s2 } => format!("SUB {}, {}, {}", d, s1, s2),
-            Self::XORI { d, s, im } => format!("XORI {}, {}, {}", d, s, im),
-            Self::LH { d, s, im } => format!("LH {}, {}({})", d, im, s),
+            Self::XORI { d, s, im } => {
+                format!("XORI {}, {}, {}", d, s, (((im & 0xFFF) as i32) << 20) >> 20)
+            }
+            Self::LH { d, s, im } => {
+                format!("LH {}, {}({})", d, (((im & 0xFFF) as i32) << 20) >> 20, s)
+            }
             Self::SLL { d, s1, s2 } => format!("SLL {}, {}, {}", d, s1, s2),
             Self::SRL { d, s1, s2 } => format!("SRL {}, {}, {}", d, s1, s2),
             Self::SRA { d, s1, s2 } => format!("SRA {}, {}, {}", d, s1, s2),
